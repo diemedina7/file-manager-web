@@ -1,0 +1,27 @@
+<form [formGroup]="formFile">
+  <label for="fileName">Nombre del archivo</label>
+  <input type="text" formControlName="fileNameControl" class="form-control mb-2">
+
+  <p *ngIf="isValidField('fileNameControl')" class="form-text text-danger mb-2">
+    {{ getFieldError('fileNameControl') }}
+  </p>
+
+  <label for="fileContent">Texto:</label>
+  <textarea formControlName="fileContentControl" class="form-control mb-2" cols="30" rows="10"></textarea>
+
+  <p *ngIf="isValidField('fileContentControl')" class="form-text text-danger mb-2">
+    {{ getFieldError('fileContentControl') }}
+  </p>
+
+  <div class="d-flex justify-content-end">
+    <div class="row gx-2">
+      <div class="col">
+        <button type="button" class="btn btn-danger">Cancelar</button>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-success" (click)="getDataFile()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>
+
