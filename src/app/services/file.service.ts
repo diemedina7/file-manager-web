@@ -12,7 +12,9 @@ export class FileService {
   constructor() { }
 
   get files(): File[] {
-    return [...this._files];
+    const files = localStorage.getItem("files");
+    this._files = files ? JSON.parse(files) : [];
+    return this._files;
   }
 
   addFile(file: File): void {
@@ -22,10 +24,10 @@ export class FileService {
     }
 
     this._files.push(file);
+    localStorage.setItem("files", JSON.stringify(this._files));
+
     console.log("archivo agregado");
     console.log(this.files);
-
-    localStorage.setItem("files", JSON.stringify(this._files));
 
     // const newPersonaje: Personaje = { id: uuid(), ...personaje }
     // file.id = uuid();

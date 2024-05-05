@@ -1,27 +1,37 @@
-<form [formGroup]="formFile">
-  <label for="fileName">Nombre del archivo</label>
-  <input type="text" formControlName="fileNameControl" class="form-control mb-2">
+<div class="text-end mb-2">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Agregar nuevo
+  </button>
+</div>
 
-  <p *ngIf="isValidField('fileNameControl')" class="form-text text-danger mb-2">
-    {{ getFieldError('fileNameControl') }}
-  </p>
-
-  <label for="fileContent">Texto:</label>
-  <textarea formControlName="fileContentControl" class="form-control mb-2" cols="30" rows="10"></textarea>
-
-  <p *ngIf="isValidField('fileContentControl')" class="form-text text-danger mb-2">
-    {{ getFieldError('fileContentControl') }}
-  </p>
-
-  <div class="d-flex justify-content-end">
-    <div class="row gx-2">
-      <div class="col">
-        <button type="button" class="btn btn-danger">Cancelar</button>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="col">
+      <div class="modal-body">
+        <form [formGroup]="formFile" class="mb-2">
+          <label for="fileName">Nombre del archivo</label>
+          <input type="text" id="fileName" formControlName="fileNameControl" class="form-control mb-2">
+
+          <p *ngIf="isValidField('fileNameControl')" class="form-text text-danger mb-2">
+            {{ getFieldError('fileNameControl') }}
+          </p>
+
+          <label for="fileContent">Texto:</label>
+          <textarea id="fileContent" formControlName="fileContentControl" class="form-control mb-2" cols="30" rows="10"></textarea>
+
+          <p *ngIf="isValidField('fileContentControl')" class="form-text text-danger mb-2">
+            {{ getFieldError('fileContentControl') }}
+          </p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-success" (click)="getDataFile()">Guardar</button>
       </div>
     </div>
   </div>
-</form>
-
+</div>

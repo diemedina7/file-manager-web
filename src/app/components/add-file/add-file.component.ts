@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { Modal } from 'bootstrap';
 
 import { File } from '../../interfaces/file';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-file',
@@ -15,6 +17,7 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AddFileComponent {
+  @ViewChild('modalNewFile') modal!: ElementRef;
 
   public formFile: FormGroup = this.fb.nonNullable.group({
     fileNameControl:      new FormControl('', [Validators.required]),
@@ -24,7 +27,7 @@ export class AddFileComponent {
   @Output()
   public newFile: EventEmitter<File> = new EventEmitter<File>();
 
-  constructor( private fb: FormBuilder ) {}
+  constructor( private fb: FormBuilder, private modalService: NgbModal ) {}
 
   public getDataFile() {
     if (this.formFile.invalid) {
@@ -37,7 +40,8 @@ export class AddFileComponent {
 
     let newFile: File = {
       name: fileName,
-      content: fileContent
+      content: fileContent,
+      date: new Date()
     }
 
     this.newFile.emit(newFile);
@@ -62,5 +66,11 @@ export class AddFileComponent {
     }
 
     return null;
+  }
+
+  public openModal(): void {
+    // this.modalService.open(modalNewFile);
+    // const mod = new Modal(this.modal.nativeElement);
+    // modal2.show();
   }
 }

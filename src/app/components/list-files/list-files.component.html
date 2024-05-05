@@ -1,0 +1,18 @@
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th style="width: 100px;">Nombre</th>
+      <th style="width: 100px;">Contenido</th>
+      <th style="width: 100px;">Fecha</th>
+      <th style="width: 100px;">Acciones</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let file of files">
+    <tr>
+      <td>{{ file.name }}</td>
+      <td>{{ file.content }}</td>
+      <td>{{ file.date | date:'dd/MM/yyyy' }}</td>
+      <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+    </tr>
+  </tbody>
+</table>

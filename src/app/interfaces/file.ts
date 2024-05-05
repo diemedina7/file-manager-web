@@ -1,5 +1,6 @@
 export interface File {
   id?:      number,
   name:     string,
-  content:  string
+  content:  string,
+  date:     Date
 }
