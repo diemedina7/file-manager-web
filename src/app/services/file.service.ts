@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { File } from '../interfaces/file';
-import { json } from 'stream/consumers';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,16 @@ export class FileService {
 
   private _files: File[] = [];
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   get files(): File[] {
-    const files = localStorage.getItem("files");
-    this._files = files ? JSON.parse(files) : [];
-    return this._files;
+    if (isPlatformBrowser(this.platformId)) {
+      const files = localStorage.getItem("files");
+      this._files = files ? JSON.parse(files) : [];
+      return this._files;
+    } else {
+      return [];
+    }
   }
 
   addFile(file: File): void {

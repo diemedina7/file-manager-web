@@ -27,6 +27,6 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.files = this.fs.files;
+    this.files = this.fs.files;
   }
 }

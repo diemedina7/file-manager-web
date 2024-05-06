@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import { Modal } from 'bootstrap';
 
 import { File } from '../../interfaces/file';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-add-file',
@@ -27,9 +26,9 @@ export class AddFileComponent {
   @Output()
   public newFile: EventEmitter<File> = new EventEmitter<File>();
 
-  constructor( private fb: FormBuilder, private modalService: NgbModal ) {}
+  constructor( private fb: FormBuilder, private fs: FileService) {}
 
-  public getDataFile() {
+  public saveFile() {
     if (this.formFile.invalid) {
       this.formFile.markAllAsTouched();
       return;
@@ -66,11 +65,5 @@ export class AddFileComponent {
     }
 
     return null;
-  }
-
-  public openModal(): void {
-    // this.modalService.open(modalNewFile);
-    // const mod = new Modal(this.modal.nativeElement);
-    // modal2.show();
   }
 }
