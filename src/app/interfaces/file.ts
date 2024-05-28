@@ -1,5 +1,5 @@
 export interface File {
-  id?:      number,
+  id:      string,
   name:     string,
   content:  string,
   date:     Date

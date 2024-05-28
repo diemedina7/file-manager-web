@@ -22,11 +22,12 @@ export class MainPageComponent implements OnInit {
 
   constructor( private fs: FileService ) {}
 
-  public saveFile(file: File) {
-    this.fs.addFile(file);
+  ngOnInit(): void {
+    this.files = this.fs.files;
   }
 
-  ngOnInit(): void {
+  public saveFile(file: File) {
+    this.fs.addFile(file);
     this.files = this.fs.files;
   }
 }

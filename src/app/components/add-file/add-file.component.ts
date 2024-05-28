@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { v4 as uuid } from 'uuid';
+
 import { File } from '../../interfaces/file';
 import { FileService } from '../../services/file.service';
 
@@ -16,7 +18,7 @@ import { FileService } from '../../services/file.service';
   ],
 })
 export class AddFileComponent {
-  @ViewChild('modalNewFile') modal!: ElementRef;
+  @ViewChild('closeModal') closeModal!: ElementRef;
 
   public formFile: FormGroup = this.fb.nonNullable.group({
     fileNameControl:      new FormControl('', [Validators.required]),
@@ -26,7 +28,7 @@ export class AddFileComponent {
   @Output()
   public newFile: EventEmitter<File> = new EventEmitter<File>();
 
-  constructor( private fb: FormBuilder, private fs: FileService) {}
+  constructor( private fb: FormBuilder) {}
 
   public saveFile() {
     if (this.formFile.invalid) {
@@ -38,6 +40,7 @@ export class AddFileComponent {
     let fileContent: string = this.formFile.get("fileContentControl")?.value;
 
     let newFile: File = {
+      id: uuid(),
       name: fileName,
       content: fileContent,
       date: new Date()
@@ -45,6 +48,7 @@ export class AddFileComponent {
 
     this.newFile.emit(newFile);
     this.formFile.reset();
+    this.closeModal.nativeElement.click();
   }
 
   public isValidField( field: string ): boolean | null {
